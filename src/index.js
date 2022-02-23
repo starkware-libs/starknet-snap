@@ -6,10 +6,10 @@ function generateKeyPair() {
   // const privateKey2 = stark.randomAddress();
 
   const starkKeyPair = ec.getKeyPair(privateKey1);
-  // const publicKey = ec.getStarkKey(starkKeyPair);
+  const publicKey = ec.getStarkKey(starkKeyPair);
 
   // return {starkKeyPair, publicKey};
-  return {privateKey1, starkKeyPair};
+  return {privateKey1, starkKeyPair, publicKey};
 }
 
 wallet.registerRpcMessageHandler(async (originString, requestObject) => {
@@ -28,9 +28,20 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
         ]
       });
 
+    case 'getSnapState': {
+      const state = await wallet.request({
+        method: 'snap_manageState',
+        params: ['get']
+      });
+      return state;
+    }
+
     case 'createKeyPair': {
-      let privateKey1;
       const result = generateKeyPair();
+      wallet.request({
+        method: 'snap_manageState',
+        params: ['update', {...result}]
+      });
 
       return wallet.request({
         method: 'snap_confirm',
@@ -39,7 +50,10 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
             prompt: 'Create a starknet-keypair',
             description:
               "starknet keyPair is... and with it you'll be able to...",
-            textAreaContent: `1: ${result.privateKey1}\nstarkKeyPair: ${result.starkKeyPair}`
+            textAreaContent:
+              `privateKey1: ${result.privateKey1}\n` +
+              `publicKey: ${result.publicKey}\n\n` +
+              `metamask newState has: ${Object.keys(result)}`
           }
         ]
       });

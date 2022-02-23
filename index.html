@@ -25,18 +25,27 @@
     <br>
     <br>
     <button class="keyPair">starknet keyPair</button>
+    <button class="getState">Show snap state</button>
+    <span id="mmState"></span>
+    <p id="createKeyPairResponse"></p>
   </body>
 
   <script>
     const snapId = `local:${window.location.href}`;
 
-    const connectButton = document.querySelector('button.connect')
-    const sendButton = document.querySelector('button.sendHello')
-    const keyPairButton = document.querySelector('button.keyPair')
+    const connectButton = document.querySelector('button.connect');
+    const sendButton = document.querySelector('button.sendHello');
+    const stateButton = document.querySelector('button.getState');
+    const keyPairButton = document.querySelector('button.keyPair');
 
-    connectButton.addEventListener('click', connect)
-    sendButton.addEventListener('click', send)
-    keyPairButton.addEventListener('click', createStarknetKeyPair)
+    const stateTag = document.getElementById('mmState');
+    const outputTag = document.getElementById('createKeyPairResponse');
+
+
+    connectButton.addEventListener('click', connect);
+    sendButton.addEventListener('click', send);
+    stateButton.addEventListener('click', getState);
+    keyPairButton.addEventListener('click', createStarknetKeyPair);
 
     // here we get permissions to interact with and install the snap
     async function connect () {
@@ -64,16 +73,38 @@
     }
 
     async function createStarknetKeyPair() {
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'createKeyPair'
+          }]
+        });
+
+        outputTag.innerText = 'generated successfully stark-private-Key\n'
+          + 'and it\'s matching stark-key-pair & stark-public-key.\n'
+          + 'They\'re saved to the snap\'s state.'
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
+        outputTag.innerText = 'failed to generate keys'
+      }
+    }
+
+    async function getState() {
         try {
           const response = await ethereum.request({
             method: 'wallet_invokeSnap',
             params: [snapId, {
-              method: 'createKeyPair'
+              method: 'getSnapState'
             }]
-          })
+          });
+          
+          stateTag.innerText = `${Object.keys(response)}`;
         } catch (err) {
-          console.error(err)
-          alert('Problem happened: ' + err.message || err)
+          console.error(err);
+          alert('Problem happened: ' + err.message || err);
+          stateTag.innerText = ''
         }
       }
   </script>
