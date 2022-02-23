@@ -1,13 +1,13 @@
 {
   "version": "0.7.0",
-  "proposedName": "MetaMask Template Snap",
-  "description": "A MetaMask Snap template.",
+  "proposedName": "MetaMask starknet Snap",
+  "description": "starknet snap",
   "repository": {
     "type": "git",
     "url": "https://github.com/MetaMask/snap-template.git"
   },
   "source": {
-    "shasum": "/knv7bZNLdSIGckHlP+BKMwTfKpA7ol2GleH4lrCKDM=",
+    "shasum": "61vBkP9gU56Sg1o/U8E3X6R2nuSdSFvY51FY8OHNGDg=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
