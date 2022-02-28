@@ -28,14 +28,13 @@
     <button class="sendHello">Send Hello</button>
     <br>
     <br>
-    <button class="keyPair">starknet keyPair</button>
     <button class="getState">Show snap state</button>
     <span id="mmState"></span>
     <p id="createKeyPairResponse"></p>
     <br>
     <ul>
-      <li>After having starknet keys, can deploy a new starknet account to starknet,
-        <br>which relates to those key.
+      <li>Generates a public-key and keypair, currently from a saved private-key.
+        <br>Then, tries to deploy an account-contract to starknet with that public-key.
       </li>
     </ul>
     <button class="deployAccount">Deploy account</button>
@@ -48,18 +47,15 @@
     const connectButton = document.querySelector('button.connect');
     const sendButton = document.querySelector('button.sendHello');
     const stateButton = document.querySelector('button.getState');
-    const keyPairButton = document.querySelector('button.keyPair');
     const deployButton = document.querySelector('button.deployAccount');
 
     const stateTag = document.getElementById('mmState');
-    const keyPairTag = document.getElementById('createKeyPairResponse');
     const deployTag = document.getElementById('deployedAccountAddress');
 
 
     connectButton.addEventListener('click', connect);
     sendButton.addEventListener('click', send);
     stateButton.addEventListener('click', getState);
-    keyPairButton.addEventListener('click', createStarknetKeyPair);
     deployButton.addEventListener('click', deployAccount);
 
     // here we get permissions to interact with and install the snap
@@ -84,24 +80,6 @@
       } catch (err) {
         console.error(err)
         alert('Problem happened: ' + err.message || err)
-      }
-    }
-
-    async function createStarknetKeyPair() {
-      try {
-        const response = await ethereum.request({
-          method: 'wallet_invokeSnap',
-          params: [snapId, {
-            method: 'createKeyPair'
-          }]
-        });
-
-        keyPairTag.innerText = 'successfully generated stark-private-Key\n'
-          + 'and it\'s matching stark-key-pair & stark-public-key.\n'
-      } catch (err) {
-        console.error(err);
-        alert('Problem happened: ' + err.message || err);
-        keyPairTag.innerText = ''
       }
     }
 

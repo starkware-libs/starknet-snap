@@ -1,7 +1,8 @@
-const {compileCalldata, defaultProvider} = require('starknet');
+// const {compileCalldata, defaultProvider} = require('starknet');
+const {defaultProvider} = require('starknet');
+const {compileCalldata} = require('./utils');
 const {waitForTransaction} = require('./waitForTx');
-const {CompiledAccountContract} = require('../contract/Accont.json');
-const {CompiledERC20} = require('../contract/ERC20.json');
+const {CompiledAccountContract} = require('./Accont.json');
 
 /**
  * [step 2] Deploys a given compiled contract (json) to starknet.
@@ -15,6 +16,8 @@ export async function deployAccount(publicKey) {
   const compiledCallData = compileCalldata({
     public_key: publicKey
   });
+  console.log('compiledCallData:', '\n', compiledCallData);
+  console.log('CompiledAccountContract:', '\n', CompiledAccountContract);
   const deployTransaction = await defaultProvider.deployContract({
     contract: CompiledAccountContract,
     constructorCalldata: compiledCallData

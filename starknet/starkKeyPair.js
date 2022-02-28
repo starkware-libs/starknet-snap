@@ -8,7 +8,7 @@ const {ec} = require('starknet');
  */
 export function generateStarkKeyPair() {
   try {
-    console.log('got inside generateStarkKeyPair');
+    console.log('generate starkKeyPair');
     const privateKey = config.privateKey; // will be changed to be related to mm
 
     const starkKeyPair = ec.getKeyPair(privateKey);
