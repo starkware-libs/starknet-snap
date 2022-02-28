@@ -26,16 +26,52 @@
 
     <button class="connect">Connect</button>
     <button class="sendHello">Send Hello</button>
+<<<<<<< Updated upstream
+=======
+    <br>
+    <br>
+    <button class="keyPair">starknet keyPair</button>
+    <button class="getState">Show snap state</button>
+    <span id="mmState"></span>
+    <p id="createKeyPairResponse"></p>
+    <br>
+    <ul>
+      <li>After having starknet keys, can deploy a new starknet account to starknet,
+        <br>which relates to those key.
+      </li>
+    </ul>
+    <button class="deployAccount">Deploy account</button>
+    <p id="deployedAccountAddress"></p>
+>>>>>>> Stashed changes
   </body>
 
   <script>
     const snapId = `local:${window.location.href}`;
 
+<<<<<<< Updated upstream
     const connectButton = document.querySelector('button.connect')
     const sendButton = document.querySelector('button.sendHello')
 
     connectButton.addEventListener('click', connect)
     sendButton.addEventListener('click', send)
+=======
+    const connectButton = document.querySelector('button.connect');
+    const sendButton = document.querySelector('button.sendHello');
+    const stateButton = document.querySelector('button.getState');
+    const keyPairButton = document.querySelector('button.keyPair');
+    const deployButton = document.querySelector('button.deployAccount');
+
+    const stateTag = document.getElementById('mmState');
+    const keyPairTag = document.getElementById('createKeyPairResponse');
+    const deployTag = document.getElementById('deployedAccountAddress');
+
+
+    connectButton.addEventListener('click', connect);
+    sendButton.addEventListener('click', send);
+    stateButton.addEventListener('click', getState);
+    keyPairButton.addEventListener('click', createStarknetKeyPair);
+    deployButton.addEventListener('click', deployAccount);
+>>>>>>> Stashed changes
 
     // here we get permissions to interact with and install the snap
     async function connect () {
@@ -61,5 +97,60 @@
         alert('Problem happened: ' + err.message || err)
       }
     }
+<<<<<<< Updated upstream
+=======
+
+    async function createStarknetKeyPair() {
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'createKeyPair'
+          }]
+        });
+
+        keyPairTag.innerText = 'successfully generated stark-private-Key\n'
+          + 'and it\'s matching stark-key-pair & stark-public-key.\n'
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
+        keyPairTag.innerText = ''
+      }
+    }
+
+    async function getState() {
+      let response;
+      try {
+        response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'getSnapState'
+          }]
+        });
+        stateTag.innerText = response && typeof response === 'object' ? `${Object.keys(response)}` : `${response}`;
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
+        stateTag.innerText = ''
+      }
+    }
+
+    async function deployAccount() {
+      let response;
+      try {
+        response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [snapId, {
+            method: 'deployAccount'
+          }]
+        });
+        deployTag.innerText = `responce from deployAccount:\n${response}`;
+      } catch (err) {
+        console.error(err);
+        alert('Problem happened: ' + err.message || err);
+        deployTag.innerText = ''
+      }
+    }
+>>>>>>> Stashed changes
   </script>
 </html>
