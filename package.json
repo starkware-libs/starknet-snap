@@ -50,12 +50,7 @@
     "node": ">=12.11.0"
   },
   "dependencies": {
-<<<<<<< Updated upstream
-    "@metamask/key-tree": "^3.0.1",
-    "starknet": "^2.5.1"
-=======
     "eth-rpc-errors": "^4.0.3",
     "starknet": "^3.0.0"
->>>>>>> Stashed changes
   }
 }

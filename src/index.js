@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-const { ec } = require('starknet');
-=======
 const {ethErrors} = require('eth-rpc-errors');
 const {deployAccount} = require('../starknet/account');
 const {generateStarkKeyPair} = require('../starknet/starkKeyPair');
->>>>>>> Stashed changes
 
 wallet.registerRpcMessageHandler(async (originString, requestObject) => {
   switch (requestObject.method) {
@@ -16,14 +12,6 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
           {
             prompt: `Hello, ${originString}!`,
             description:
-<<<<<<< Updated upstream
-              'This custom confirmation is just for display purposes.',
-            textAreaContent:
-              'But you can edit the snap source code to make it do something, if you want to!',
-          },
-        ],
-      });
-=======
               'Carmit, This custom confirmation is just for display purposes.',
             textAreaContent:
               'But you can edit the snap source code to make it do something, if you want to!'
@@ -93,7 +81,6 @@ wallet.registerRpcMessageHandler(async (originString, requestObject) => {
       }
       return accountAddress;
     }
->>>>>>> Stashed changes
     default:
       throw new Error('Method not found.');
   }

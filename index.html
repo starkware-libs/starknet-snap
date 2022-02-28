@@ -26,8 +26,6 @@
 
     <button class="connect">Connect</button>
     <button class="sendHello">Send Hello</button>
-<<<<<<< Updated upstream
-=======
     <br>
     <br>
     <button class="keyPair">starknet keyPair</button>
@@ -42,19 +40,11 @@
     </ul>
     <button class="deployAccount">Deploy account</button>
     <p id="deployedAccountAddress"></p>
->>>>>>> Stashed changes
   </body>
 
   <script>
     const snapId = `local:${window.location.href}`;
 
-<<<<<<< Updated upstream
-    const connectButton = document.querySelector('button.connect')
-    const sendButton = document.querySelector('button.sendHello')
-
-    connectButton.addEventListener('click', connect)
-    sendButton.addEventListener('click', send)
-=======
     const connectButton = document.querySelector('button.connect');
     const sendButton = document.querySelector('button.sendHello');
     const stateButton = document.querySelector('button.getState');
@@ -71,7 +61,6 @@
     stateButton.addEventListener('click', getState);
     keyPairButton.addEventListener('click', createStarknetKeyPair);
     deployButton.addEventListener('click', deployAccount);
->>>>>>> Stashed changes
 
     // here we get permissions to interact with and install the snap
     async function connect () {
@@ -97,8 +86,6 @@
         alert('Problem happened: ' + err.message || err)
       }
     }
-<<<<<<< Updated upstream
-=======
 
     async function createStarknetKeyPair() {
       try {
@@ -151,6 +138,5 @@
         deployTag.innerText = ''
       }
     }
->>>>>>> Stashed changes
   </script>
 </html>
