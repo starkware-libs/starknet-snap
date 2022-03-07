@@ -2,7 +2,7 @@
 const {defaultProvider} = require('starknet');
 const {compileCalldata} = require('./utils');
 const {waitForTransaction} = require('./waitForTx');
-const {CompiledAccountContract} = require('./Accont.json');
+const AccountContract = require('../contract/Account.json');
 
 /**
  * [step 2] Deploys a given compiled contract (json) to starknet.
@@ -16,7 +16,7 @@ export async function deployAccount(publicKey) {
   const compiledCallData = compileCalldata({
     public_key: publicKey
   });
-  console.log('compiledCallData:', '\n', compiledCallData);
+  const CompiledAccountContract = AccountContract;
   console.log('CompiledAccountContract:', '\n', CompiledAccountContract);
   const deployTransaction = await defaultProvider.deployContract({
     contract: CompiledAccountContract,
